@@ -1,3 +1,5 @@
+import '../polyfills/mathHypotPolyfill'
+
 /**
  * Возвращает модуль числа
  * 
@@ -9,6 +11,6 @@
  * @param vec вектор (массив чисел, размерность может быть любой)
  * @returns модуль числа
  */
-export default function vecAbs(vec: number[]): number { 
-   return 0;
+export default function vecAbs(vec: number[]): number {
+   return Math.hypot(...vec);
 }

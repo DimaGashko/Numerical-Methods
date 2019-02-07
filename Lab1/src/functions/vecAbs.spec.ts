@@ -9,8 +9,8 @@ describe('vecAbs', () => {
       expect(res).to.be.equal(0);
    });
 
-   it('|{36}| -> 6', () => {
-      const res = vecAbs([36]);
+   it('|{6}| -> 6', () => {
+      const res = vecAbs([6]);
 
       expect(res).to.be.equal(6);
    });
