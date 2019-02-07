@@ -35,7 +35,7 @@ module.exports = function (config) {
          stats: 'errors-only'
       },
       mochaReporter: {
-         showDiff: true,
+         showDiff: false,
       },
       port: 9876,
       colors: true,
