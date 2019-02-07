@@ -15,7 +15,7 @@ describe('matrixPlusMatrix', () => {
             ]
          );
 
-      }, 'Matrixes must be the same length');
+      }, 'Matrices must be the same length');
    });
    
    it('Ошибка при разном количестве столбцов', () => {
@@ -24,7 +24,7 @@ describe('matrixPlusMatrix', () => {
             [[1, 2, 3]], [[1]]
          );
 
-      }, 'Matrixes must be the same length');
+      }, 'Matrices must be the same length');
    });
 
    it('Матрицы 1х1', () => {

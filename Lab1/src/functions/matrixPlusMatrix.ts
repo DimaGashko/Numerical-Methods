@@ -25,7 +25,7 @@ export default function matrixPlusMatrix(a: number[][], b: number[][]): number[]
    const m2 = b.length;
 
    if (m1 && m2 && (m1 !== m2 || a[0].length !== b[0].length)) {
-      throw 'Matrixes must be the same length';
+      throw 'Matrices must be the same length';
    } 
    
    return a.map((row, i) => {

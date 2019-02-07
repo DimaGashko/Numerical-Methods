@@ -23,5 +23,7 @@ export default function matrixMulMatrix(a: number[][], b: number[][]): number[][
       throw 'The matrix is inconsistent';
    }
 
+   
+
    return [];
 }
