@@ -1,55 +1,53 @@
-import { expect } from 'chai';
-import matrixMulNum from './matrixMulNum';
+import { expect, assert } from 'chai';
+import matrixMulMatrix from './matrixMulMatrix';
 
-describe('matrixMulNum', () => {
-   it('Матрица 1х1', () => {
-      const res = matrixMulNum([[5]], 2);
-
-      expect(res).to.have.deep.members([[10]]);
-   }); 
-
-   it('Матрица 2х2', () => {
-      const res = matrixMulNum([
-         [1, 2],
-         [3, 4],
-      ], 3);
-
-      expect(res).to.have.deep.members([
-         [3, 6],
-         [9, 12],
-      ]);
+describe('matrixMulMatrix', () => {
+   it('Ошибка при несогласованных матрицах', () => {
+      assert.throws(() => {
+         matrixMulMatrix([
+            [1, 2],
+            [1, 2],
+            [1, 2]
+         ], [
+            [1, 2, 3],
+            [1, 2, 3],
+            [1, 2, 3],
+         ]);
+      }, 'The matrix is inconsistent');
    });
    
-   it('Матрица 2х3', () => {
-      const res = matrixMulNum([
-         [1, 2, 3],
-         [4, 5, 6],
-      ], 2);
+   it('Test 1', () => {
+      const res = matrixMulMatrix([
+         [1, -1],
+         [2, 0],
+         [3, 0],
+      ], [
+         [1, 1],
+         [2, 0],
+      ]);
 
       expect(res).to.have.deep.members([
-         [2, 4, 6],
-         [8, 10, 12],
+         [-1, 1],
+         [2, 2],
+         [3, 3]
       ]);
-   });
-
-   it('Матрица 3х1', () => {
-      const res = matrixMulNum([
-         [1],
-         [2],
-         [3],
-      ], 4);
+   });  
+   
+   it('Test 2', () => {
+      const res = matrixMulMatrix([
+         [1, 2, 1],
+         [0, 1, 2],
+      ], [
+         [1, 0],
+         [0, 1],
+         [1, 1],
+      ]);
 
       expect(res).to.have.deep.members([
-         [4],
-         [8],
-         [12],
+         [1, 2, 1],
+         [0, 1, 2],
+         [1, 3, 3]
       ]);
-   });
-
-   it('Матрица 1х4', () => {
-      const res = matrixMulNum([[1, 2, 3, 4]], 2);
-
-      expect(res).to.have.deep.members([[2, 4, 6, 8]]);
-   });
+   });  
 
 });
