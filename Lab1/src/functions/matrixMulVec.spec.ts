@@ -17,13 +17,27 @@ describe('matrixMulVec', () => {
          [2, 4, 0],
          [-2, 1, 3],
          [-1, 0, 1],
-      ], [-1, 2, -1]);
+
+      ], [1, 2, -1]);
 
       expect(res).to.have.deep.members([
          [10],
          [-3],
          [-2]
       ]);
-   });  
+   }); 
+   
+   it('Test 2', () => {
+      const res = matrixMulVec([
+         [1, 2, 3],
+         [1, 2, 3],
+
+      ], [3, 2, 1]);
+
+      expect(res).to.have.deep.members([
+         [10],
+         [10],
+      ]);
+   }); 
    
 });
