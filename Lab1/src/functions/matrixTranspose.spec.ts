@@ -2,13 +2,6 @@ import { expect } from 'chai';
 import matrixTranspose from './matrixTranspose';
 
 describe('matrixTranspose', () => {
-
-   it('Пустая матрица остается пустой', () => {
-      const res: number[][] = matrixTranspose([]);
-
-      expect(res).to.have.deep.members([]);
-   }); 
-
    it('Матрица 1х1', () => {
       const res = matrixTranspose([[5]]);
 

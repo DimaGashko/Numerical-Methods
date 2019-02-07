@@ -16,5 +16,21 @@
  * @returns транспонированная матрица
  */
 export default function matrixTranspose(matrix: number[][]): number[][] {
-   return [];
+   const m = matrix.length;
+   if (m === 0) return [];
+
+   const n = matrix[0].length;
+
+   const tMatrix = new Array(n);
+   for (let i = 0; i < n; i++) {
+      tMatrix[i] = new Array(m);
+   }
+
+   for (let i = 0; i < m; i++) { 
+      for (let j = 0; j < n; j++) { 
+         tMatrix[j][i] = matrix[i][j];
+      }
+   }
+
+   return tMatrix;
 }
