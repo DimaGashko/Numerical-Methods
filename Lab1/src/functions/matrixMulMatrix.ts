@@ -39,11 +39,11 @@ export default function matrixMulMatrix(a: number[][], b: number[][]): number[][
          let item = 0;
 
          for (let k = 0; k < m2; k++) {
-            item += a[1][k] + b[k][1];
+            item += a[j][k] * b[k][i];
          }
 
-         res[i][j] = item;
-      }
+         res[j][i] = item; 
+      } 
 
    }
 
