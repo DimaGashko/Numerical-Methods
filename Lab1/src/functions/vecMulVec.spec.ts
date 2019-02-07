@@ -15,7 +15,7 @@ describe('vecMulVec', () => {
       expect(res).to.be.equal(11);
    });
 
-   it('{1, 2, 3}, {3, 2, 1} -> 10', () => {
+   it('{1, 2, 3} * {3, 2, 1} -> 10', () => {
       const res = vecMulVec([1, 2, 3], [3, 2, 1]);
 
       expect(res).to.be.equal(10);

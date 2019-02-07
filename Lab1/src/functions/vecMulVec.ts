@@ -13,9 +13,10 @@
  * @param v2 второй вектор (массив чисел)
  */
 export default function vecMulVec(v1: number[], v2: number[]): number {
-   /*if (v1.length !== v2.length) {
+   if (v1.length !== v2.length) {
       throw 'Vectors must be the same length';
-   }*/
+   } 
 
-   return 0;
+   return v1.map((item, i) => item * v2[i])
+      .reduce((res, item) => res + item);
 }

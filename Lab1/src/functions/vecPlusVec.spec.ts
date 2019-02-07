@@ -15,13 +15,13 @@ describe('vecPlusVec', () => {
       expect(res.length).to.be.equal(0);
    });
 
-   it('[1, 2, 3] + [3, 2, 1] -> [4, 4, 4]', () => {
+   it('{1, 2, 3} + {3, 2, 1} -> {4, 4, 4}', () => {
       const res = vecPlusVec([1, 2, 3], [3, 2, 1]);
 
       expect(res).to.have.members([4, 4, 4]);
    });
 
-   it('[1, 2] + [-1, -2] -> [0, 0]', () => {
+   it('{1, 2} + {-1, -2} -> {0, 0}', () => {
       const res = vecPlusVec([1, 2], [-1, -2]);
 
       expect(res).to.have.members([0, 0]);
