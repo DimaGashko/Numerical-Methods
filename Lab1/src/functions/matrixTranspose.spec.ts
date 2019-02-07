@@ -43,4 +43,15 @@ describe('matrixTranspose', () => {
       expect(res).to.have.deep.members([[1, 2, 3]]);
    });
 
+   it('Матрица 1х4', () => {
+      const res = matrixTranspose([[1, 2, 3, 4]]);
+
+      expect(res).to.have.deep.members([
+         [1],
+         [2],
+         [3],
+         [4],
+      ]);
+   });
+
 });
