@@ -13,7 +13,7 @@ describe('matrixMulMatrix', () => {
             [1, 2, 3],
             [1, 2, 3],
          ]);
-      }, 'The matrix is inconsistent');
+      }, 'Matrices are inconsistent');
    });
    
    it('Test 1', () => {

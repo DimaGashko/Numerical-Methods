@@ -3,33 +3,29 @@
  * 
  *```js
  * matrixMulNum([
- *    [1, -1],
- *    [2, 0],
- *    [3, 0],
- * ], [
- *  [1, 1],
- *  [2, 0],
- * ]); 
- * // [-1, 1],
- * // [2, 2],
- * // [3, 3],
+ *    [2, 4, 0],
+ *    [-2, 1, 3],
+ *    [-1, 0, 1],
+ * 
+ * ], [1, 2, -1]); 
+ * // [10],
+ * // [-3],
+ * // [-2],
  * ```
  * 
- * @param a первая матрица (в виде двумерного массива)
- * @param b вторая матрица (в виде двумерного массива)
+ * @param a матрица (в виде двумерного массива)
+ * @param b вектор (в виде массива)
 */
-export default function matrixMulMatrix(a: number[][], b: number[][]): number[][] {
+export default function matrixMulVec(a: number[][], b: number[]): number[][] {
    const m1 = a.length;
    const m2 = b.length;
 
    if (m1 && a[0].length !== m2) { 
-      throw 'Matrices are inconsistent';
+      throw 'The matrix is inconsistent';
    }
 
-   const n2 = b[0].length;
-
    const res = new Array(m1);
-   for (let i = 0; i < m1; i++) { 
+   /*for (let i = 0; i < m1; i++) { 
       res[i] = new Array(n2);      
    }
 
@@ -46,6 +42,6 @@ export default function matrixMulMatrix(a: number[][], b: number[][]): number[][
       } 
 
    }
-
+*/
    return res;
 }
