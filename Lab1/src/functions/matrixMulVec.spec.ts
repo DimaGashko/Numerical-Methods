@@ -1,16 +1,15 @@
 import { expect, assert } from 'chai';
-import matrixMulMatrix from './matrixMulMatrix';
 import matrixMulVec from './matrixMulVec';
 
-describe('matrixMulMatrix', () => {
-   it('Ошибка при несогласованных матрицах', () => {
+describe('matrixMulVec', () => {
+   it('Ошибка когда матрица и вектор не согласованы', () => {
       assert.throws(() => {
          matrixMulVec([
             [1, 2],
             [1, 2],
             [1, 2]
          ], [1, 2, 3]);
-      }, 'The matrix is inconsistent');
+      }, 'The matrix and the vector are inconsistent');
    });
    
    it('Test 1', () => {
