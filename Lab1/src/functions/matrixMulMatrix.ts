@@ -19,5 +19,9 @@
  * @param b вторая матрица (в виде двумерного массива)
 */
 export default function matrixMulMatrix(a: number[][], b: number[][]): number[][] {
+   if (a.length && a[0].length !== b.length) { 
+      throw 'The matrix is inconsistent';
+   }
+
    return [];
 }
