@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import matrixMulNum from './matrixMulNum';
 
-describe('matrixTranspose', () => {
+describe('matrixMulNum', () => {
    it('Матрица 1х1', () => {
       const res = matrixMulNum([[5]], 2);
 

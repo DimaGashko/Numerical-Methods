@@ -16,5 +16,7 @@
  * @returns матрица умноженная на число
 */
 export default function matrixMulNum(matrix: number[][], num: number): number[][] {
-   return [];
+   return matrix.map((row) => { 
+      return row.map((item) => item * num);
+   });
 }
