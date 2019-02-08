@@ -2,8 +2,8 @@
    p.matrixDom__title <%= t.title %>
    form(action="").matrixDom__form
       .matrixDom__data
-      <% if (t.viewType === 'cell') { %>
-         .matrixDom__cells 
+         <% if (t.viewType === 'cell') { %>
+         .matrixDom__cellsContainer
 
             <% for (let m = 0; m < t.m; m++) { %>
             .matrixDom__cellsRow
@@ -13,14 +13,16 @@
                <% } %>
             <% } %>
 
-      <% } else if (t.viewType === 'area') { %>
-      .matrixDom__area 
-      <% } else { %>
-      p Wrong viewType
-      <% } %>
+         <% } else if (t.viewType === 'area') { %>
+         .matrixDom__areaContainer
+            textarea.matrixDom__area(placeholder="1 2 3.9\n4 5 6.2\n7 8 9.1") <%= t._getAreaText() %>
+
+         <% } else { %>
+         p Wrong viewType
+         <% } %>
   
       .matrixDom__controls
-         input(type="number" placeholder="m" value!="<%= t.m %>" min="1" max="20" step="1")
-         input(type="number" placeholder="n" value!="<%= t.n %>" min="1" max="20" step="1")
-         button(type="button").matrixDom__control.matrixDom__view View
-         button(type="button").matrixDom__control.matrixDom__reset Reset 
+         input.matrixDom__dimensionsControl.matrixDom__mDimensions(type="number" placeholder="m" value!="<%= t.m %>" min="1" max="20" step="1")
+         input.matrixDom__dimensionsControl.matrixDom__nDimensions(type="number" placeholder="n" value!="<%= t.n %>" min="1" max="20" step="1")
+         button.matrixDom__control.matrixDom__view(type="button") View
+         button.matrixDom__control.matrixDom__reset(type="button") Reset 

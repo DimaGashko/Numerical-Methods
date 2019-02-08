@@ -106,6 +106,12 @@ export default class MatrixDom extends EventListener {
       this._root = document.createElement('div');
    }
 
+   private _getAreaText(): string { 
+      return this._matrix.map((row) => { 
+         return row.join(' ');
+      }).join('\n');
+   }
+
    public toggleViewType() {
       this.viewType = (this.viewType === 'cell')
          ? 'area' : 'cell';
