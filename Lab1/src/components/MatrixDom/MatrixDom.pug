@@ -1,6 +1,6 @@
 .matrixDom
    p.matrixDom__title <%= t.title %>
-   form
+   form(action="").matrixDom__form
       .matrixDom__data
          <% if (t.viewType === 'cell') { %>
             .cells cells data
@@ -9,9 +9,9 @@
          <% } else { %>
             p Wrong viewType
          <% } %>
-
+ 
       .matrixDom__controls
          input(type="number" placeholder="m" value!="<%= t.m %>" min="1" max="20" step="1")
          input(type="number" placeholder="n" value!="<%= t.n %>" min="1" max="20" step="1")
-         button.matrixDom__control.matrixDom__view View
-         button.matrixDom__control.matrixDom__reset Reset
+         button(type="button").matrixDom__control.matrixDom__view View
+         button(type="button").matrixDom__control.matrixDom__reset Reset 
