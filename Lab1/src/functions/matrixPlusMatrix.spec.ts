@@ -92,6 +92,15 @@ describe('matrixPlusMatrix', () => {
    
          expect(res).to.have.deep.members([[3, 5, 7, 9]]);
       });
+
+      it('Плюс по умолчанию', () => {
+         const res = matrixPlusMatrix(
+            [[1, 2, 3, 4]],
+            [[2, 3, 4, 5]],
+         );
+    
+         expect(res).to.have.deep.members([[3, 5, 7, 9]]);
+      });
    });
 
    describe('Тип: -', () => {
@@ -126,8 +135,8 @@ describe('matrixPlusMatrix', () => {
          ], '-');
    
          expect(res).to.have.deep.members([
-            [0],
-            [0],
+            [0, 0, 0],
+            [0, 0, 0],
          ]);
       });
    });
