@@ -22,7 +22,8 @@ declare namespace MicroTemplate {
    }
 
    interface TemplateStatic {
-      (idOrSource: string, data?: any): string | TmplFunc;
+      (idOrSource: string, data: any): string;
+      (idOrSource: string): TmplFunc;
 
       /**
        * By default, micro-template uses document.getElementById(id).innerHTML 

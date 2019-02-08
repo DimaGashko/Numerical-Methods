@@ -4,6 +4,8 @@ import * as microTemplate from 'micro-template';
 import * as matrixDomTemplate from './MatrixDom.pug';
 import './MatrixDom.sass';
 
+microTemplate.template.variable = 't';
+
 export default class MatrixDom extends EventListener {
    private _matrix: number[][] = [];
    private _title: string = '';
@@ -26,7 +28,9 @@ export default class MatrixDom extends EventListener {
    } 
 
    private _renderHTML() { 
-      this._root.innerHTML = matrixDomTemplate;
+      this._root.innerHTML = microTemplate.template(matrixDomTemplate, {
+         title: 'MatrixDommmm',
+      });
       console.log(microTemplate);
    }
 
