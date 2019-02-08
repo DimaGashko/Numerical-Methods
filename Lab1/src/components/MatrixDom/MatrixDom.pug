@@ -9,7 +9,8 @@
             .matrixDom__cellsRow
 
                <% for (let n = 0; n < t.n; n++) { %>
-               input(type="number" placeholder="0", value!="<%= t._matrix[m][n] %>") 
+               .matrixCell
+                  input.matrixCell__input(type="number" value!="<%= t._matrix[m][n] %>") 
                <% } %>
             <% } %>
 

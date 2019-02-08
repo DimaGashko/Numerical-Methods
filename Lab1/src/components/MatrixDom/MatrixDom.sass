@@ -1,2 +1,63 @@
-.matrixDom__title
+// matrixDom
+.matrixDom 
+   display: inline-block
+   vertical-align: middle
    
+.matrixDom__title
+   text-align: center
+   font-size: 18px
+   margin: 0
+   margin-bottom: 16px
+
+.matrixDom__data
+   display: inline-block
+   text-align: center
+   margin-bottom: 16px
+   padding: 8px
+
+   // Brackets
+   border-radius: 15px/40px
+   border: 2px solid #555
+   border-top-color: transparent
+   border-bottom-color: transparent
+   
+.matrixDom__controls
+   text-align: center
+
+.matrixDom__cellsRow
+   margin-bottom: 5px
+
+   &:last-child 
+      margin-bottom: 0
+
+// matrixCell
+.matrixCell 
+   display: inline-block
+   vertical-align: middle
+   margin-right: 5px
+
+   &:last-child 
+      margin-right: 0
+
+.matrixCell__input
+   padding: 1px 3px
+   margin: 0
+   text-align: center 
+   width: 50px
+   height: 20px
+   vertical-align: middle
+   font-family: monospace
+   background-color: transparent
+   color: #000
+   border-radius: 2px
+   border: 1px solid #ccc
+   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075)
+
+   -moz-appearance: textfield
+
+   &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+      -webkit-appearance: none
+
+   &:focus
+      outline: 2px solid #4D90FE
+      outline-offset: -1px
