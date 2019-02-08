@@ -24,9 +24,15 @@
   
       .matrixDom__controls
          .matrixDom__dimensionsControls
-            input.matrixDom__dimensionsControl.matrixDom__mDimensions(type="number" length="2" placeholder="m" value!="<%= t.m %>" min="1" max="20" step="1")
+            <% const dimDisable = (t.viewType === 'area') %>
+            
+            input.matrixDom__dimensionsControl.matrixDom__mDimensions(
+               type="number" placeholder="m" value!="<%= t.m %>" min="1" max="20" step="1"
+            )&attributes({"disabled": false})
             span.matrixDom__mnSeparator ☓
-            input.matrixDom__dimensionsControl.matrixDom__nDimensions(type="number" placeholder="n" value!="<%= t.n %>" min="1" max="20" step="1")
+            input.matrixDom__dimensionsControl.matrixDom__nDimensions(
+               type="number" placeholder="n" value!="<%= t.n %>" min="1" max="20" step="1" disabled="<%= dimDisable %>"
+            )
          
          .matrixDom__buttons
             button.matrixDom__control.matrixDom__view(type="button") View
