@@ -2,23 +2,23 @@
    p.matrixDom__title <%= t.title %>
    form(action="").matrixDom__form
       .matrixDom__data
-         <% if (t.viewType === 'cell') { %>
-            .matrixDom__cells 
+      <% if (t.viewType === 'cell') { %>
+         .matrixDom__cells 
 
-               <% for (let m = 0; m < t.m; m++) { %>
-                  .matrixDom__cellsRow
+            <% for (let m = 0; m < t.m; m++) { %>
+            .matrixDom__cellsRow
 
-                     <% for (let n = 0; n < t.n; n++) { %>
-                        input(type="number" placeholder="0", value!="<%= t._matrix[m][n] %>") 
-                     <% } %>
+               <% for (let n = 0; n < t.n; n++) { %>
+               input(type="number" placeholder="0", value!="<%= t._matrix[m][n] %>") 
                <% } %>
+            <% } %>
 
-         <% } else if (t.viewType === 'area') { %>
-            .matrixDom__area 
-         <% } else { %>
-            p Wrong viewType
-         <% } %>
- 
+      <% } else if (t.viewType === 'area') { %>
+      .matrixDom__area 
+      <% } else { %>
+      p Wrong viewType
+      <% } %>
+  
       .matrixDom__controls
          input(type="number" placeholder="m" value!="<%= t.m %>" min="1" max="20" step="1")
          input(type="number" placeholder="n" value!="<%= t.n %>" min="1" max="20" step="1")

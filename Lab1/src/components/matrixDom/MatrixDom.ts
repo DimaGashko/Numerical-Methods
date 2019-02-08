@@ -11,6 +11,8 @@ type ViewType = 'cell' | 'area';
 interface IElements {
    viewButton: HTMLElement,
    resetButton: HTMLElement,
+   mDimensions: HTMLElement,
+   nDimensions: HTMLElement,
 }
 
 export default class MatrixDom extends EventListener {
@@ -32,6 +34,8 @@ export default class MatrixDom extends EventListener {
    private els: IElements = {
       viewButton: null,
       resetButton: null,
+      mDimensions: null,
+      nDimensions: null,
    }
 
    constructor() {
@@ -47,28 +51,36 @@ export default class MatrixDom extends EventListener {
       this.render();
    }
 
-   private _initDelegatedEvent() { 
-      this._root.addEventListener('click', (event) => { 
+   private _initDelegatedEvent() {
+      this._root.addEventListener('click', (event) => {
          const targ = <HTMLElement>event.target;
 
          if (targ.classList.contains('matrixDom__view')) {
             this.onView();
-         
-         } else if (targ.classList.contains('matrixDom__reset')) { 
+
+         } else if (targ.classList.contains('matrixDom__reset')) {
             this.onReset();
-         } 
+
+         } else if (targ.classList.contains('matrixDom__dimensionsControl')) {
+            this.onDimensionsChange();
+
+         }
       });
    }
 
    private _initElementEvents() {
-      
+
    }
 
-   private onView() { 
+   private onDimensionsChange() {
+
+   }
+
+   private onView() {
       this.toggleViewType();
    }
 
-   private onReset() { 
+   private onReset() {
       this.resetData();
    }
 
@@ -82,11 +94,13 @@ export default class MatrixDom extends EventListener {
    private _getElements() {
       this.els.viewButton = this.root.querySelector('.matrixDom__view');
       this.els.resetButton = this.root.querySelector('.matrixDom__reset');
+      this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
+      this.els.mDimensions = this.root.querySelector('.matrixDom__nDimensions');
    }
 
    private _renderHTML() {
       this._root.innerHTML = microTemplate.template(matrixDomTemplate, this);
-   } 
+   }
 
    private _createRoot() {
       this._root = document.createElement('div');
@@ -95,13 +109,13 @@ export default class MatrixDom extends EventListener {
    public toggleViewType() {
       this.viewType = (this.viewType === 'cell')
          ? 'area' : 'cell';
-      
+
       this.render();
    }
 
    public resetData() {
       this._matrix = this._defaultMatrix;
-      
+
       this.render();
    }
 
