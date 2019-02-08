@@ -20,7 +20,9 @@
  * @param b вторая матрица (в виде двумерного массива)
  * @returns сумма двух матриц
  */
-export default function matrixPlusMatrix(a: number[][], b: number[][]): number[][] {
+export default function matrixPlusMatrix(
+   a: number[][], b: number[][], operator: '+' | '-' = '+'
+): number[][] {
    const m1 = a.length;
    const m2 = b.length;
 
@@ -29,6 +31,11 @@ export default function matrixPlusMatrix(a: number[][], b: number[][]): number[]
    } 
    
    return a.map((row, i) => {
-      return row.map((item, j) => item + b[i][j]);
+      return row.map((item1, j) => {
+         const item2 = b[i][j];
+
+         if (operator === '+') return item1 + item2;
+         if (operator === '-') return item1 - item2;
+      });
    });
 }
