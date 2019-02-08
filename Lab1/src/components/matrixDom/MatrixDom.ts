@@ -36,16 +36,22 @@ export default class MatrixDom extends EventListener {
       this._root.innerHTML = microTemplate.template(matrixDomTemplate, this);
    }
 
-   private _createRoot() { 
+   private _createRoot() {
       this._root = document.createElement('div');
-   }
-
-   private _setTitle(val: string) { 
-      this._title = val;
    }
 
    public get root(): HTMLElement { 
       return this._root;
+   }
+
+   public getData(): number[][] { 
+      return this._matrix;
+   }
+
+   public setData(data: number[][]) { 
+      this._matrix = data;
+
+      this.render();
    }
 
    public get m(): number {
@@ -61,7 +67,8 @@ export default class MatrixDom extends EventListener {
    }
 
    public set title(val: string) {
-      this._setTitle(val);
+      this._title = val;
+
       this.render();
    }
 }
