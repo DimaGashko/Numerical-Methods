@@ -1,4 +1,8 @@
+import MatrixDom from './components/MatrixDom/MatrixDom';
+
 import 'normalize.css'
 import './styles/index.sass';
 
-console.log('Numerical Methods: Lab 1');
+const matrixDom = new MatrixDom();
+
+document.body.appendChild(matrixDom.root); 
