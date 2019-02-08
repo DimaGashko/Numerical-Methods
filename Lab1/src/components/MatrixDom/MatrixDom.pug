@@ -1,9 +1,14 @@
-.matrixDom.viewCells.viewArea
+.matrixDom
    p.matrixDom__title <%= t.title %>
    form
       .matrixDom__data
-         .cells cells data
-         .area area data
+         <% if (t.viewType === 'cell') { %>
+            .cells cells data
+         <% } else if (t.viewType === 'area') { %>
+            .area area data
+         <% } else { %>
+            p Wrong viewType
+         <% } %>
 
       .matrixDom__controls
          input(type="number" placeholder="m" value!="<%= t.m %>" min="1" max="20" step="1")

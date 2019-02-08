@@ -6,7 +6,11 @@ import './MatrixDom.sass';
 
 microTemplate.template.variable = 't';
 
+type ViewType = 'cell' | 'area';
+
 export default class MatrixDom extends EventListener {
+   private _viewType: ViewType = 'cell';
+
    private _matrix: number[][] = [
       [1, 2, 3],
       [4, 5, 6],
@@ -67,7 +71,21 @@ export default class MatrixDom extends EventListener {
    }
 
    public set title(val: string) {
+      if (this._title === val) return;
+
       this._title = val;
+
+      this.render();
+   }
+
+   public get viewType(): ViewType {
+      return this._viewType;
+   }
+
+   public set viewType(val: ViewType) {
+      if (this._viewType === val) return;
+
+      this._viewType = val;
 
       this.render();
    }
