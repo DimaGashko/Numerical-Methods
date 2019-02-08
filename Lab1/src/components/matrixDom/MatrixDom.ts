@@ -17,9 +17,9 @@ export default class MatrixDom extends EventListener {
    private _viewType: ViewType = 'cell';
 
    private _defaultMatrix: number[][] = [
-      [1, 2, 3],
-      [4, 5, 6],
-      [7, 8, 9],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
    ];
 
    private _matrix: number[][] = this._defaultMatrix;

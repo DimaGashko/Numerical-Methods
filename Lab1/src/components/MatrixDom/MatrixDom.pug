@@ -3,9 +3,18 @@
    form(action="").matrixDom__form
       .matrixDom__data
          <% if (t.viewType === 'cell') { %>
-            .cells cells data
+            .matrixDom__cells 
+
+               <% for (let m = 0; m < t.m; m++) { %>
+                  .matrixDom__cellsRow
+
+                     <% for (let n = 0; n < t.n; n++) { %>
+                        input(type="number" placeholder="0", value!="<%= t._matrix[m][n] %>") 
+                     <% } %>
+               <% } %>
+
          <% } else if (t.viewType === 'area') { %>
-            .area area data
+            .matrixDom__area 
          <% } else { %>
             p Wrong viewType
          <% } %>
