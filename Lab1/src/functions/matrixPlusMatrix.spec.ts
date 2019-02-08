@@ -30,7 +30,7 @@ describe('matrixPlusMatrix', () => {
    describe('Тип: +', () => {
 
       it('Матрицы 1х1', () => {
-         const res = matrixPlusMatrix([[5]], [[2]]);
+         const res = matrixPlusMatrix([[5]], [[2]], '+');
    
          expect(res).to.have.deep.members([[7]]);
       });
@@ -42,7 +42,7 @@ describe('matrixPlusMatrix', () => {
          ], [
             [2, 3],
             [4, 5],
-         ]);
+         ], '+');
    
          expect(res).to.have.deep.members([
             [3, 5],
@@ -57,7 +57,7 @@ describe('matrixPlusMatrix', () => {
          ], [
             [6, 5, 4],
             [3, 2, 1]
-         ]);
+         ], '+');
    
          expect(res).to.have.deep.members([
             [7, 7, 7],
@@ -74,7 +74,7 @@ describe('matrixPlusMatrix', () => {
             [2],
             [2],
             [2],
-         ]);
+         ], '+');
    
          expect(res).to.have.deep.members([
             [3],
@@ -87,6 +87,7 @@ describe('matrixPlusMatrix', () => {
          const res = matrixPlusMatrix(
             [[1, 2, 3, 4]],
             [[2, 3, 4, 5]],
+            '+'
          );
    
          expect(res).to.have.deep.members([[3, 5, 7, 9]]);
@@ -95,23 +96,23 @@ describe('matrixPlusMatrix', () => {
 
    describe('Тип: -', () => {
       it('Матрицы 1х1', () => {
-         const res = matrixPlusMatrix([[5]], [[2]]);
+         const res = matrixPlusMatrix([[5]], [[2]], '-');
    
-         expect(res).to.have.deep.members([[7]]);
+         expect(res).to.have.deep.members([[3]]);
       });
    
       it('Матрицы 2х2', () => {
          const res = matrixPlusMatrix([
+            [9, 8],
+            [7, 6],
+         ], [
             [1, 2],
             [3, 4],
-         ], [
-            [2, 3],
-            [4, 5],
-         ]);
+         ], '-');
    
          expect(res).to.have.deep.members([
-            [3, 5],
-            [7, 9],
+            [8, 6],
+            [4, 2],
          ]);
       });
    
@@ -120,13 +121,13 @@ describe('matrixPlusMatrix', () => {
             [1, 2, 3],
             [4, 5, 6],
          ], [
-            [6, 5, 4],
-            [3, 2, 1]
-         ]);
+            [1, 2, 3],
+            [4, 5, 6]
+         ], '-');
    
          expect(res).to.have.deep.members([
-            [7, 7, 7],
-            [7, 7, 7],
+            [0],
+            [0],
          ]);
       });
    });
