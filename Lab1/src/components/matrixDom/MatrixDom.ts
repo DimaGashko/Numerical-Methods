@@ -23,7 +23,7 @@ interface IElements {
 }
 
 export default class MatrixDom extends EventListener {
-   private _viewType: ViewType = 'area';
+   private _viewType: ViewType = 'cell';
 
    private _defaultMatrix: number[][] = [
       [0, 0, 0],
@@ -31,10 +31,10 @@ export default class MatrixDom extends EventListener {
       [0, 0, 0],
    ];
 
-   private _matrix: number[][] = [];
+   private _matrix: number[][] = this._defaultMatrix;
 
-   private _m: number;
-   private _n: number;
+   private _m: number = this._defaultMatrix.length;
+   private _n: number = this._defaultMatrix[0].length;
 
    private _title: string = 'Matrix A:';
 
@@ -71,7 +71,7 @@ export default class MatrixDom extends EventListener {
       this._createRoot();
       this._initDelegatedEvents();
 
-      this.resetData(); // call render inside
+      this.render();
    }
 
    private _initDelegatedEvents() {
@@ -121,9 +121,7 @@ export default class MatrixDom extends EventListener {
       const m = +this.els.mDimensions.value;
       const n = +this.els.nDimensions.value;
 
-      this._m = m;
-      this._n = n;
-
+      this._setDimensions(m, n);
       this.renderData();
    }
 
@@ -210,6 +208,8 @@ export default class MatrixDom extends EventListener {
       }
 
       this._matrix[i][j] = (!isNaN(val)) ? val : 0;
+
+      this.emit('change-data');
    }
 
    public toggleViewType() {
@@ -246,8 +246,7 @@ export default class MatrixDom extends EventListener {
          this.resetData();
       }
 
-      this._m = data.length;
-      this._n = data[0].length;
+      this._setDimensions(data.length, data[0].length);
 
       data.forEach((row, i) => {
          row.forEach((item, j) => {
@@ -255,7 +254,17 @@ export default class MatrixDom extends EventListener {
          });
       });
 
-      this.render();
+      this.renderData();
+      this.renderControls();
+
+      this.emit('change-data');
+   }
+
+   private _setDimensions(m: number, n: number) {
+      this._m = m ^ 0;
+      this._n = n ^ 0;
+
+      this.emit('change-dimensions');
    }
 
    public get m(): number {
@@ -263,9 +272,8 @@ export default class MatrixDom extends EventListener {
    }
 
    public set m(val: number) {
-      this._m = val ^ 0;
-
-      this.render();
+      this._setDimensions(val, this._n);
+      this.renderData();
    }
 
    public get n(): number {
@@ -273,9 +281,8 @@ export default class MatrixDom extends EventListener {
    }
 
    public set n(val: number) {
-      this._n = val ^ 0;
-
-      this.render(); 
+      this._setDimensions(this._m, val);
+      this.render();       
    }
 
    public get title(): string {
@@ -290,6 +297,8 @@ export default class MatrixDom extends EventListener {
       if (!this.els.title) return;
 
       this.els.title.innerHTML = this._title;
+
+      this.emit('change-title');
    }
 
    public get viewType(): ViewType {
