@@ -1,7 +1,10 @@
 import EventListener from '../EventListener/EventListener';
 import * as microTemplate from 'micro-template';
 
-import * as matrixDomTemplate from './MatrixDom.pug';
+import * as fullTmpl from './templates/fullTmpl.pug';
+import * as dataTmpl from './templates/dataTmpl.pug';
+import * as controlsTmpl from './templates/controlsTmpl.pug';
+
 import './MatrixDom.sass';
 
 microTemplate.template.variable = 't';
@@ -42,6 +45,15 @@ export default class MatrixDom extends EventListener {
       mDimensions: null,
       nDimensions: null,
    }
+
+   // Базовый шаблон
+   private fullTmpl = fullTmpl; 
+
+   // Шаблон данных (непосредственно матрицы)
+   private dataTmpl = dataTmpl;
+
+   // Шаблон панели управления
+   private controlsTmpl = controlsTmpl;
 
    constructor() {
       super();
