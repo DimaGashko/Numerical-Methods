@@ -43,6 +43,9 @@ export default class MatrixDom extends EventListener {
       [0, 0, 0],
    ];
 
+   private _defaultM: number = this._defaultMatrix.length;
+   private _defaultN: number = this._defaultMatrix[0].length;
+
    private _matrix: number[][];
 
    private _m: number;
@@ -88,14 +91,18 @@ export default class MatrixDom extends EventListener {
       this._createRoot();
       this._initDelegatedEvents();
 
-      if ('data' in config) { 
-         this.setData(config.data);
-      } else {
-         this.resetData();
-      }
+      const customData = 'data' in config
+         && config.data.length > 0
+         && config.data[0].length > 0;
+      
+      // Установка данных обязана быть перед изменением m, n и их лимитов
+      if (customData) this._defaultMatrix = config.data;
 
-      if ('m' in config) this._setDimensions(config.m, this._n);
-      if ('n' in config) this._setDimensions(this._m, config.n);
+      if ('m' in config) this._defaultM = config.m;
+      else if (customData) this._defaultM = config.data.length;
+
+      if ('n' in config) this._defaultN = config.n;
+      else if (customData) this._defaultN = config.data[0].length;
 
       if ('minM' in config) this._setMinM(config.minM);
       if ('minN' in config) this._setMinM(config.minN);
@@ -104,6 +111,7 @@ export default class MatrixDom extends EventListener {
 
       if ('disabled' in config) this._isDisabled = config.disabled;
 
+      this.resetData();
       this.render();
    }
 
@@ -286,18 +294,15 @@ export default class MatrixDom extends EventListener {
    }
 
    public resetData() {
-      this._setDimensions(
-         this._defaultMatrix.length,
-         this._defaultMatrix[0].length
-      );
+      this._setDimensions(this._defaultM, this._defaultN);
 
       this._matrix = [];
 
-      for (let i = 0; i < this._m; i++) {
-         for (let j = 0; j < this._n; j++) {
-            this.set(i, j, this._defaultMatrix[i][j]);
-         }
-      }
+      this._defaultMatrix.forEach((row, i) => { 
+         row.forEach((item, j) => { 
+            this.set(i, j, item);
+         });
+      });
 
       this.renderData();
    }
