@@ -1,9 +1,8 @@
-import MatrixDom from './components/MatrixDom/MatrixDom';
-import matrixMulMatrix from './calcFunctions/matrixMulMatrix';
+import '../_global/global';
+import './matrix-mul-matrix.sass';
 
-import 'normalize.css'
-import './styles/index.sass';
-
+import MatrixDom from '../../components/MatrixDom/MatrixDom';
+import matrixMulMatrix from '../../calcFunctions/matrixMulMatrix';
 
 const matrixA = new MatrixDom();
 const matrixB = new MatrixDom();

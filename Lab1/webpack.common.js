@@ -7,10 +7,21 @@ const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const htmlWebpackPluginBaseConfig = {
+   favicon: "./src/img/favicon.png",
+   minify: {
+      collapseWhitespace: true,
+      removeComments: true,
+   },
+}
+
+
 module.exports = {
    mode: 'development',
    entry: {
-      app: './src/index.ts',
+      main: './src/pages/main/index.ts',
+      matrixMulMatrix: './src/pages/matrix-mul-matrix/index.ts',
+      matrixPlusMatrix: './src/pages/matrix-plus-matrix/index.ts',
    },
    output: {
       filename: '[name].[contenthash].js',
