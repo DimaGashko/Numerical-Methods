@@ -12,8 +12,8 @@ interface IElements {
    area: HTMLElement,
    viewButton: HTMLElement,
    resetButton: HTMLElement,
-   mDimensions: HTMLElement,
-   nDimensions: HTMLElement,
+   mDimensions: HTMLInputElement,
+   nDimensions: HTMLInputElement,
 }
 
 export default class MatrixDom extends EventListener {
@@ -66,9 +66,14 @@ export default class MatrixDom extends EventListener {
          } else if (targ.classList.contains('matrixDom__reset')) {
             this.onReset();
 
-         } else if (targ.classList.contains('matrixDom__dimensionsControl')) {
-            this.onDimensionsChange();
+         } 
+      });
 
+      this._root.addEventListener('change', (event) => {
+         const targ = <HTMLElement>event.target;
+
+         if (targ.classList.contains('matrixDom__dimensionsControl')) {
+            this.onDimensionsChange();
          }
       });
    }
@@ -78,7 +83,11 @@ export default class MatrixDom extends EventListener {
    }
 
    private onDimensionsChange() {
+      const m = +this.els.mDimensions.value;
+      const n = +this.els.nDimensions.value;
 
+      this.m = m;
+      this.n = n;
    }
 
    private onView() {
@@ -114,7 +123,7 @@ export default class MatrixDom extends EventListener {
       this.els.viewButton = this.root.querySelector('.matrixDom__view');
       this.els.resetButton = this.root.querySelector('.matrixDom__reset');
       this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
-      this.els.mDimensions = this.root.querySelector('.matrixDom__nDimensions');
+      this.els.nDimensions = this.root.querySelector('.matrixDom__nDimensions');
    }
 
    private _renderHTML() {
@@ -212,7 +221,7 @@ export default class MatrixDom extends EventListener {
    }
 
    public set m(val: number) {
-      this._m = val;
+      this._m = val ^ 0;
 
       this.render();
    }
@@ -222,7 +231,7 @@ export default class MatrixDom extends EventListener {
    }
 
    public set n(val: number) {
-      this._n = val;
+      this._n = val ^ 0;
 
       this.render(); 
    }
