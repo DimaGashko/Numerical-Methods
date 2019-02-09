@@ -1,3 +1,5 @@
+$bracketsPadding: 12px 
+   
 %focus 
    &:focus
       outline: 2px solid #4D90FE
@@ -23,17 +25,25 @@
 
 .matrixDom__form
    text-align: center
-
+   
 .matrixDom__data
    display: inline-block
    margin-bottom: 4px
-   padding: 8px
+   max-width: 100%
+   box-sizing: border-box
+   overflow: auto
+   padding: $bracketsPadding 0
+   display: inline-block
 
    // Brackets
    border-radius: 15px/40px
    border: 2px solid #555
    border-top-color: transparent
    border-bottom-color: transparent
+
+.matrixDom__dataContainer 
+   display: inline-block
+   margin: 0 $bracketsPadding
    
 .matrixDom__controls
 
@@ -86,7 +96,7 @@
    min-height: 70px
 
    max-width: 500px
-   max-height: 350px
+   max-height: 380px
 
    tab-size: 3
    border-radius: 2px

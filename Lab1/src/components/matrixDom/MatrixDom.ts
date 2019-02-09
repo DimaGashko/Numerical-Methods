@@ -23,7 +23,7 @@ interface IElements {
 }
 
 export default class MatrixDom extends EventListener {
-   private _viewType: ViewType = 'area';
+   private _viewType: ViewType = 'cell';
 
    private _defaultMatrix: number[][] = [
       [0, 0, 0],
@@ -35,6 +35,11 @@ export default class MatrixDom extends EventListener {
 
    private _m: number;
    private _n: number;
+
+   private _maxM: number = 25;
+   private _maxN: number = 25;
+   private _minM: number = 1;
+   private _minN: number = 1;
 
    private _title: string = 'Matrix A:';
 
@@ -134,7 +139,6 @@ export default class MatrixDom extends EventListener {
                .replace(/[\s,]+/g, ',').split(',')
                .map((item) => +item);
          });
-      
       
       this._matrix = [];
       
@@ -296,6 +300,8 @@ export default class MatrixDom extends EventListener {
 
       data.forEach((row, i) => {
          row.forEach((item, j) => {
+            if (i > this._m - 1 || j > this._n - 1) return;
+
             this.set(i, j, item);
          });
       });
@@ -311,8 +317,17 @@ export default class MatrixDom extends EventListener {
    }
 
    private _setDimensions(m: number, n: number) {
-      this._m = m ^ 0;
-      this._n = n ^ 0;
+      m = m ^ 0;
+      n = n ^ 0;
+
+      if (m > this._maxM) m = this._maxM;
+      if (m < this._minM) m = this._minM;
+
+      if (n > this._maxN) n = this._maxN;
+      if (n < this._minN) n = this._minN;
+
+      this._m = m;
+      this._n = n;
 
       this.emit('change-dimensions');
    }
