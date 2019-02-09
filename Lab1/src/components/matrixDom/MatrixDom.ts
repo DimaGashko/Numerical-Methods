@@ -135,8 +135,9 @@ export default class MatrixDom extends EventListener {
                .map((item) => +item);
          });
       
-      console.log(newData);
       
+      this._setData(newData);
+      this.renderControls();
    }
 
    private onDimensionsChange() {
@@ -278,12 +279,18 @@ export default class MatrixDom extends EventListener {
       return res;
    }
 
-   public setData(data: number[][]) {
+   public _setData(data: number[][]) {
       if (data.length === 0 || data[0].length === 0) {
          this.resetData();
       }
 
-      this._setDimensions(data.length, data[0].length);
+      const m = data.length;
+
+      // Берем максимальное количество столбцов (если в других меньше, 
+      // недостающие элементы позже(в this.set()) станут нулями)
+      const n = data.map(row => row.length).sort((a, b) => b - a)[0];
+
+      this._setDimensions(m, n);
 
       data.forEach((row, i) => {
          row.forEach((item, j) => {
@@ -291,10 +298,14 @@ export default class MatrixDom extends EventListener {
          });
       });
 
+      this.emit('change-data');
+   }
+
+   public setData(data: number[][]) {
+      this._setData(data);
+
       this.renderData();
       this.renderControls();
-
-      this.emit('change-data');
    }
 
    private _setDimensions(m: number, n: number) {
