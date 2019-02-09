@@ -136,6 +136,8 @@ export default class MatrixDom extends EventListener {
          });
       
       
+      this._matrix = [];
+      
       this._setData(newData);
       this.renderControls();
    }
