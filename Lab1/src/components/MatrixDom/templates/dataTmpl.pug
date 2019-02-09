@@ -5,7 +5,7 @@
    .matrixDom__cellsRow
 
       <% for (let j = 0; j < t._n; j++) { %>
-      .matrixCell
+      .matrixCell(data-cell-i!="<%= i %>" data-cell-j!="<%= j %>")
          input.matrixCell__input(type="number" value!="<%= t.get(i, j) %>") 
       <% } %>
    <% } %>

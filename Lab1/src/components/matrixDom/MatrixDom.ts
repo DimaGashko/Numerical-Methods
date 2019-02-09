@@ -69,12 +69,12 @@ export default class MatrixDom extends EventListener {
 
    private init(): void {
       this._createRoot();
-      this._initDelegatedEvent();
+      this._initDelegatedEvents();
 
       this.resetData(); // call render inside
    }
 
-   private _initDelegatedEvent() {
+   private _initDelegatedEvents() {
       this._root.addEventListener('click', (event) => {
          const targ = <HTMLElement>event.target;
 
@@ -87,6 +87,14 @@ export default class MatrixDom extends EventListener {
          } 
       });
 
+      this._root.addEventListener('keyup', (event) => {
+         const targ = <HTMLElement>event.target;
+
+         if (targ.classList.contains('matrixCell__input')) {
+            this.onCellChange(<HTMLInputElement>targ);
+         }
+      });
+
       this._root.addEventListener('change', (event) => {
          const targ = <HTMLElement>event.target;
 
@@ -94,6 +102,19 @@ export default class MatrixDom extends EventListener {
             this.onDimensionsChange();
          }
       });
+   }
+
+   private onCellChange(cellInput: HTMLInputElement) { 
+      const cell = cellInput.closest('.matrixCell');
+      if (!cell) return
+
+      const i = +cell.getAttribute('data-cell-i');
+      const j = +cell.getAttribute('data-cell-j');
+      const val = +cellInput.value;
+
+      if (isNaN(i) || isNaN(j)) return;
+
+      this.set(i, j, val); 
    }
 
    private onDimensionsChange() {
@@ -188,7 +209,7 @@ export default class MatrixDom extends EventListener {
          this._matrix[i] = [];
       }
 
-      this._matrix[i][j] = val;
+      this._matrix[i][j] = (!isNaN(val)) ? val : 0;
    }
 
    public toggleViewType() {
