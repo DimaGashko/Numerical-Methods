@@ -385,4 +385,60 @@ export default class MatrixDom extends EventListener {
 
       this.render();
    }
+
+   public get minM(): number { 
+      return this._minM;
+   }
+
+   public set minM(val: number) {
+      this._setMinM(val);
+      this.render();
+   }
+
+   private _setMinM(val: number) {
+      if (val < 1) val = 1;
+      this._minM = val;
+   }
+
+   public get minN(): number { 
+      return this._minN;
+   }
+
+   public set minN(val: number) {
+      this._setMinN(val);
+      this.render();
+   }
+
+   private _setMinN(val: number) {
+      if (val < 1) val = 1;
+      this._minN = val;
+   }
+
+   public get maxM(): number { 
+      return this._maxM;
+   }
+
+   public set maxM(val: number) {
+      this._setMaxM(val);
+      this.render();
+   }
+
+   private _setMaxM(val: number) {
+      if (val > 500) val = 500;
+      this._maxM = val;
+   }
+
+   public get maxN(): number { 
+      return this._maxN;
+   }
+
+   public set maxN(val: number) {
+      this._setMaxN(val);
+      this.render();
+   }
+
+   private _setMaxN(val: number) {
+      if (val > 500) val = 500;
+      this._maxN = val;
+   }
 }
