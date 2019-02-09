@@ -1,8 +1,8 @@
 import MatrixDom from './components/MatrixDom/MatrixDom';
+import matrixMulMatrix from './calcFunctions/matrixMulMatrix';
 
 import 'normalize.css'
 import './styles/index.sass';
-import matrixPlusMatrix from './functions/matrixPlusMatrix';
 
 const matrixA = new MatrixDom({ m: 3, n: 3});
 const matrixB = new MatrixDom({ m: 3, n: 3});
@@ -25,20 +25,16 @@ matrixB.addEvent('change-data', () => {
 });
 
 matrixA.addEvent('change-dimensions', () => { 
+   matrixB.m = matrixA.n;
    calc();
 });
 
-matrixA.addEvent('change-dimensions', () => { 
-   matrixB.m = matrixA.m;
-   matrixB.n = matrixA.n;
-});
-
 matrixB.addEvent('change-dimensions', () => { 
-   matrixA.m = matrixB.m;
-   matrixA.n = matrixB.n;
+   matrixA.n = matrixB.m;
+   calc();
 });
 
 function calc() { 
-   const res = matrixPlusMatrix(matrixA.getData(), matrixB.getData());
+   const res = matrixMulMatrix(matrixA.getData(), matrixB.getData());
    matrixC.setData(res);
 }
