@@ -404,6 +404,8 @@ export default class MatrixDom extends EventListener {
    }
 
    public set m(val: number) {
+      if (val === this._m) return;
+
       this._setDimensions(val, this._n);
       this.render();
    }
@@ -413,6 +415,8 @@ export default class MatrixDom extends EventListener {
    }
 
    public set n(val: number) {
+      if (val === this._n) return;
+
       this._setDimensions(this._m, val);
       this.render();
    }
