@@ -10,6 +10,7 @@ import './MatrixDom.sass';
 microTemplate.template.variable = 't';
 
 export interface IMatrixDomConfig {
+   title?: string,
    m?: number,
    n?: number,
    minM?: number,
@@ -34,13 +35,16 @@ interface IElements {
 }
 
 export default class MatrixDom extends EventListener {
-   private _viewType: ViewType = 'cell';
    private _isDisabled: boolean = false;
 
+   /** Тип отображения матрицы (в виде отдельных ячеек, или текстом) */
+   private _viewType: ViewType = 'cell';
+   private _title: string = '';
+
    private _defaultMatrix: number[][] = [
-      [0, 0, 0],
-      [0, 0, 0],
-      [0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
    ];
 
    private _defaultM: number = this._defaultMatrix.length;
@@ -51,12 +55,10 @@ export default class MatrixDom extends EventListener {
    private _m: number;
    private _n: number;
 
-   private _maxM: number = 25;
-   private _maxN: number = 25;
    private _minM: number = 1;
    private _minN: number = 1;
-
-   private _title: string = 'Matrix A:';
+   private _maxM: number = 25;
+   private _maxN: number = 25;
 
    private _root: HTMLElement = null;
 
@@ -111,6 +113,7 @@ export default class MatrixDom extends EventListener {
       if ('maxM' in config) this._setMaxM(config.maxM);
       if ('maxN' in config) this._setMaxN(config.maxN);
 
+      if ('title' in config) this._title = config.title;
       if ('disabled' in config) this._isDisabled = config.disabled;
 
       this.render();
