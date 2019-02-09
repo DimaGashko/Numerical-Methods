@@ -58,7 +58,7 @@ export default class MatrixDom extends EventListener {
    }
 
    // Базовый шаблон
-   private mainTmpl = mainTmpl; 
+   private mainTmpl = mainTmpl;
 
    // Шаблон данных (непосредственно матрицы)
    private dataTmpl = dataTmpl;
@@ -90,7 +90,7 @@ export default class MatrixDom extends EventListener {
          } else if (targ.classList.contains('matrixDom__reset')) {
             this.onReset();
 
-         } 
+         }
       });
 
       this._root.addEventListener('keyup', (event) => {
@@ -100,24 +100,24 @@ export default class MatrixDom extends EventListener {
             this.onCellChange(<HTMLInputElement>targ);
          }
 
-         if (targ.classList.contains('matrixDom__area')) { 
-            this.onAreaType();
+         if (targ.classList.contains('matrixDom__area')) {
+            this.onAreaType(event);
          }
       });
-      
+
       this._root.addEventListener('change', (event) => {
          const targ = <HTMLElement>event.target;
 
          if (targ.classList.contains('matrixDom__dimensionsControl')) {
             this.onDimensionsChange();
-            
+
          } else if (targ.classList.contains('matrixCell__input')) {
             this.onCellChange(<HTMLInputElement>targ);
          }
       });
    }
 
-   private onCellChange(cellInput: HTMLInputElement) { 
+   private onCellChange(cellInput: HTMLInputElement) {
       const cell = cellInput.closest('.matrixCell');
       if (!cell) return
 
@@ -127,21 +127,22 @@ export default class MatrixDom extends EventListener {
 
       if (isNaN(i) || isNaN(j)) return;
 
-      this.set(i, j, val); 
+      this.set(i, j, val);
    }
 
-   private onAreaType() { 
+   private onAreaType(event: KeyboardEvent) {
       const newData = this.els.area.value
          .split('\n')
-         .map((row) => { 
+         .filter(row => row.trim().length > 0)
+         .map((row) => {
             return row
                .replace(/^[\D]+|[\D]+$/g, '') // trim к цифрам на краях
                .replace(/[\s,]+/g, ',').split(',')
-               .map((item) => +item);
+               .map((item) => parseFloat(item));
          });
-      
+
       this._matrix = [];
-      
+
       this._setData(newData);
       this.renderControls();
    }
@@ -164,7 +165,7 @@ export default class MatrixDom extends EventListener {
 
    private render(): void {
       this._root.innerHTML = microTemplate.template(this.mainTmpl, this);
-      
+
       this.els.data = this.root.querySelector('.matrixDom__data');
       this.els.controls = this.root.querySelector('.matrixDom__controls');
       this.els.title = this.root.querySelector('.matrixDom__title');
@@ -173,29 +174,29 @@ export default class MatrixDom extends EventListener {
       this.renderControls();
    }
 
-   private renderData() { 
+   private renderData() {
       if (!this.els.data) return;
-      
+
       this.els.data.innerHTML = microTemplate
          .template(this.dataTmpl, this);
 
       this.els.area = this.root.querySelector('.matrixDom__area');
-
+      
       this.correctAreaSize();
    }
 
-   private renderControls() { 
+   private renderControls() {
       if (!this.els.controls) return;
 
       this.els.controls.innerHTML = microTemplate
          .template(this.controlsTmpl, this);
-      
+
       this.els.viewButton = this.root.querySelector('.matrixDom__view');
       this.els.resetButton = this.root.querySelector('.matrixDom__reset');
       this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
       this.els.nDimensions = this.root.querySelector('.matrixDom__nDimensions');
    }
-   
+
    private correctAreaSize() {
       if (this.viewType !== 'area') return;
 
@@ -253,8 +254,10 @@ export default class MatrixDom extends EventListener {
    }
 
    public resetData() {
-      this._m = this._defaultMatrix.length;
-      this._n = this._defaultMatrix[0].length;
+      this._setDimensions(
+         this._defaultMatrix.length,
+         this._defaultMatrix[0].length
+      );
 
       this._matrix = [];
 
@@ -277,11 +280,11 @@ export default class MatrixDom extends EventListener {
       for (let i = 0; i < this._m; i++) {
          res[i] = new Array(this._n);
 
-         for (let j = 0; j < this._n; j++) { 
+         for (let j = 0; j < this._n; j++) {
             res[i][j] = this.get(i, j);
          }
       }
-      
+
       return res;
    }
 
@@ -329,6 +332,11 @@ export default class MatrixDom extends EventListener {
       this._m = m;
       this._n = n;
 
+      if (this.els.nDimensions && this.els.mDimensions) {
+         this.els.mDimensions.value = this._m + '';
+         this.els.nDimensions.value = this._n + '';
+      }
+
       this.emit('change-dimensions');
    }
 
@@ -347,7 +355,7 @@ export default class MatrixDom extends EventListener {
 
    public set n(val: number) {
       this._setDimensions(this._m, val);
-      this.render();       
+      this.render();
    }
 
    public get title(): string {
