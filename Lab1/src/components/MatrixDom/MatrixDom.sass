@@ -1,3 +1,13 @@
+%focus 
+   &:focus
+      outline: 2px solid #4D90FE
+      outline-offset: -1px
+
+%data-font 
+   font-family: monospace
+   color: #000
+
+   
 // matrixDom
 .matrixDom 
    display: inline-block
@@ -7,7 +17,7 @@
    text-align: center
    font-size: 18px
    margin: 0
-   margin-bottom: 16px
+   margin-bottom: 5px
 
 .matrixDom__form
    text-align: center
@@ -31,14 +41,17 @@
    &:last-child 
       margin-bottom: 0
 
-.matrixDom__dimensionsControls
+.matrixDom__dimensionsControlsContainer
    display: inline-block
    margin-right: 10px
 
 .matrixDom__dimensionsControl
+   @extend %focus
+
    width: 25px
    text-align: center
    margin: 0
+   border: 1px solid #ccc
 
    -moz-appearance: textfield
 
@@ -56,6 +69,26 @@
 
    &:last-child
       margin-right: 0
+
+.matrixDom__areaContainer
+
+.matrixDom__area 
+   @extend %data-font
+   @extend %focus
+
+   padding: 6px
+   white-space: nowrap
+
+   min-width: 150px
+   min-height: 70px
+
+   max-width: 400px
+   max-height: 400px
+
+   tab-size: 3
+   border-radius: 2px
+   border: 1px solid #ccc
+   box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075)
    
 // matrixCell
 .matrixCell 
@@ -67,15 +100,15 @@
       margin-right: 0
 
 .matrixCell__input
+   @extend %focus
+   @extend %data-font
+
    padding: 1px 3px
    margin: 0
    text-align: center 
    width: 50px
    height: 20px
    vertical-align: middle
-   font-family: monospace
-   background-color: transparent
-   color: #000
    border-radius: 2px
    border: 1px solid #ccc
    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075)
@@ -84,7 +117,3 @@
 
    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
       -webkit-appearance: none
-
-   &:focus
-      outline: 2px solid #4D90FE
-      outline-offset: -1px

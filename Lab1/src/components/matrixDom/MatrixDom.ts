@@ -16,7 +16,7 @@ interface IElements {
 }
 
 export default class MatrixDom extends EventListener {
-   private _viewType: ViewType = 'cell';
+   private _viewType: ViewType = 'area';
 
    private _defaultMatrix: number[][] = [
       [0, 0, 0],
@@ -24,9 +24,12 @@ export default class MatrixDom extends EventListener {
       [0, 0, 0],
    ];
 
-   private _matrix: number[][] = this._defaultMatrix;
+   private _matrix: number[][];
 
-   private _title: string = 'MatrixDom';
+   private _m: number;
+   private _n: number;
+
+   private _title: string = 'Matrix A:';
 
    private _root: HTMLElement = null;
 
@@ -140,11 +143,19 @@ export default class MatrixDom extends EventListener {
    }
 
    public get m(): number {
-      return this._matrix.length;
+      return this._m;
+   }
+
+   public set m(val: number) {
+      this._m = val;
    }
 
    public get n(): number {
-      return (this.m) ? this._matrix[0].length : 0;
+      return this._n;
+   }
+
+   public set n(val: number) {
+      this._n = val;
    }
 
    public get title(): string {
