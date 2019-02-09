@@ -1,5 +1,6 @@
-# name.~docx, name.~vsdx etc.
+# name.~docx, name.~vsdx, ~$name.doc etc.
 /**/*.~*
+/**/~$*.*
 
 modelling/developmentSnapshots/video/
 
