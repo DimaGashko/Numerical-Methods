@@ -104,8 +104,10 @@ export default class MatrixDom extends EventListener {
       const m = +this.els.mDimensions.value;
       const n = +this.els.nDimensions.value;
 
-      this.m = m;
-      this.n = n;
+      this._m = m;
+      this._n = n;
+
+      this.renderData();
    }
 
    private onView() {
