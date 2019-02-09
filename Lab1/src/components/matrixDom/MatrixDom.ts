@@ -338,7 +338,7 @@ export default class MatrixDom extends EventListener {
 
    public set m(val: number) {
       this._setDimensions(val, this._n);
-      this.renderData();
+      this.render();
    }
 
    public get n(): number {
