@@ -126,8 +126,17 @@ export default class MatrixDom extends EventListener {
    }
 
    private onAreaType() { 
-      const val = this.els.area.value;
-      console.log(val);
+      const newData = this.els.area.value
+         .split('\n')
+         .map((row) => { 
+            return row
+               .replace(/^[\D]+|[\D]+$/g, '') // trim к цифрам на краях
+               .replace(/[\s,]+/g, ',').split(',')
+               .map((item) => +item);
+         });
+      
+      console.log(newData);
+      
    }
 
    private onDimensionsChange() {
