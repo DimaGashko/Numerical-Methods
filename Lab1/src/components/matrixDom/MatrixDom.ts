@@ -398,6 +398,10 @@ export default class MatrixDom extends EventListener {
    private _setMinM(val: number) {
       if (val < 1) val = 1;
       this._minM = val;
+
+      if (this._m > this._minM) {
+         this._m = this._minM;
+      }
    }
 
    public get minN(): number { 
@@ -412,6 +416,10 @@ export default class MatrixDom extends EventListener {
    private _setMinN(val: number) {
       if (val < 1) val = 1;
       this._minN = val;
+
+      if (this._n < this._minN) {
+         this._n = this._minN;
+      }
    }
 
    public get maxM(): number { 
@@ -426,6 +434,10 @@ export default class MatrixDom extends EventListener {
    private _setMaxM(val: number) {
       if (val > 500) val = 500;
       this._maxM = val;
+
+      if (this._m > this._maxM) {
+         this._m = this._maxM;
+      }
    }
 
    public get maxN(): number { 
@@ -440,5 +452,10 @@ export default class MatrixDom extends EventListener {
    private _setMaxN(val: number) {
       if (val > 500) val = 500;
       this._maxN = val;
+      
+      if (this._n > this._maxN) {
+         this._n = this._maxN;
+      }
    }
+
 }

@@ -5,11 +5,8 @@ import './styles/index.sass';
 
 const matrixDom = new MatrixDom();
 
-matrixDom.minM = 2;
-matrixDom.minN = 3;
- 
-matrixDom.maxM = 150;
-matrixDom.maxN = 98;
+matrixDom.minM = 1;
+matrixDom.maxM = 1;
 
 document.body.appendChild(matrixDom.root);
 
