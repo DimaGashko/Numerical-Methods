@@ -5,12 +5,12 @@
          <% if (t.viewType === 'cell') { %>
          .matrixDom__cellsContainer
 
-            <% for (let m = 0; m < t.m; m++) { %>
+            <% for (let i = 0; i < t._m; i++) { %>
             .matrixDom__cellsRow
 
-               <% for (let n = 0; n < t.n; n++) { %>
+               <% for (let j = 0; j < t._n; j++) { %>
                .matrixCell
-                  input.matrixCell__input(type="number" value!="<%= t._matrix[m][n] %>") 
+                  input.matrixCell__input(type="number" value!="<%= t.get(i, j) %>") 
                <% } %>
             <% } %>
 

@@ -51,7 +51,7 @@ export default class MatrixDom extends EventListener {
       this._createRoot();
       this._initDelegatedEvent();
 
-      this.render();
+      this.resetData(); // call render inside
    }
 
    private _initDelegatedEvent() {
@@ -109,10 +109,36 @@ export default class MatrixDom extends EventListener {
       this._root = document.createElement('div');
    }
 
-   private _getAreaText(): string { 
-      return this._matrix.map((row) => { 
-         return row.join(' ');
-      }).join('\n');
+   private _getAreaText(): string {
+      return this.getData().map((row) => {
+         
+      });
+   }
+
+   /**
+    * Возвращает значение i строки j столбца
+    * 
+    * Всегда возвращает значение.Если на переданных координатах ничего нет 
+    * возвращает 0 (даже если i, j > m, n)
+    * 
+    * @param i номер строки
+    * @param j номер столбца
+    */
+   private get(i: number, j: number): number {
+      const row = this._matrix[i];
+      if (!row) return 0;
+
+      return row[j] || 0;
+   }
+
+   /**
+    * Устанавливает значение в матрицу (устанавливает при любых значения i, j)
+    * @param i номер строки
+    * @param j номер столбца 
+    * @param val значение
+    */
+   private set(i: number, j: number, val: number) {
+      this._matrix[i][j] = val;
    }
 
    public toggleViewType() {
@@ -123,9 +149,7 @@ export default class MatrixDom extends EventListener {
    }
 
    public resetData() {
-      this._matrix = this._defaultMatrix;
-
-      this.render();
+      this.setData(this._defaultMatrix);
    }
 
    public get root(): HTMLElement {
@@ -133,11 +157,32 @@ export default class MatrixDom extends EventListener {
    }
 
    public getData(): number[][] {
-      return this._matrix;
+      const res: number[][] = new Array(this._m);
+
+      for (let i = 0; i < this._m; i++) {
+         res[i] = new Array(this._n);
+
+         for (let j = 0; j < this._n; j++) { 
+            res[i][j] = this.get(i, j);
+         }
+      }
+      
+      return res;
    }
 
    public setData(data: number[][]) {
-      this._matrix = data;
+      if (data.length === 0 || data[0].length === 0) {
+         this.resetData();
+      }
+
+      this._m = data.length;
+      this._n = data[0].length;
+
+      data.forEach((row, i) => {
+         row.forEach((item, j) => {
+            this.set(i, j, item);
+         });
+      });
 
       this.render();
    }
