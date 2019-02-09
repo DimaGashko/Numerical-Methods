@@ -1,7 +1,7 @@
 import EventListener from '../EventListener/EventListener';
 import * as microTemplate from 'micro-template';
 
-import * as fullTmpl from './templates/fullTmpl.pug';
+import * as mainTmpl from './templates/mainTmpl.pug';
 import * as dataTmpl from './templates/dataTmpl.pug';
 import * as controlsTmpl from './templates/controlsTmpl.pug';
 
@@ -12,6 +12,9 @@ microTemplate.template.variable = 't';
 type ViewType = 'cell' | 'area';
 
 interface IElements {
+   data: HTMLElement,
+   controls: HTMLElement,
+   title: HTMLElement,
    area: HTMLElement,
    viewButton: HTMLElement,
    resetButton: HTMLElement,
@@ -39,6 +42,9 @@ export default class MatrixDom extends EventListener {
 
    /** HTML элементы компонента */
    private els: IElements = {
+      data: null,
+      controls: null,
+      title: null,
       area: null,
       viewButton: null,
       resetButton: null,
@@ -47,7 +53,7 @@ export default class MatrixDom extends EventListener {
    }
 
    // Базовый шаблон
-   private fullTmpl = fullTmpl; 
+   private mainTmpl = mainTmpl; 
 
    // Шаблон данных (непосредственно матрицы)
    private dataTmpl = dataTmpl;
@@ -111,12 +117,35 @@ export default class MatrixDom extends EventListener {
    }
 
    private render(): void {
-      this._renderHTML();
-      this._getElements();
+      this._root.innerHTML = microTemplate.template(this.mainTmpl, this);
+      
+      this.els.data = this.root.querySelector('.matrixDom__data');
+      this.els.controls = this.root.querySelector('.matrixDom__controls');
+      this.els.title = this.root.querySelector('.matrixDom__title');
+
+      this.renderData();
+      this.renderControls();
 
       this._initElementEvents();
 
       this.afterRender();
+   }
+
+   private renderData() { 
+      this.els.data.innerHTML = microTemplate
+         .template(this.dataTmpl, this);
+
+      this.els.area = this.root.querySelector('.matrixDom__area');
+   }
+
+   private renderControls() { 
+      this.els.controls.innerHTML = microTemplate
+         .template(this.controlsTmpl, this);
+      
+      this.els.viewButton = this.root.querySelector('.matrixDom__view');
+      this.els.resetButton = this.root.querySelector('.matrixDom__reset');
+      this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
+      this.els.nDimensions = this.root.querySelector('.matrixDom__nDimensions');
    }
 
    private afterRender() { 
@@ -128,18 +157,6 @@ export default class MatrixDom extends EventListener {
 
       this.els.area.style.width = this.els.area.scrollWidth + 'px';
       this.els.area.style.height = this.els.area.scrollHeight + 'px';
-   }
-
-   private _getElements() {
-      this.els.area = this.root.querySelector('.matrixDom__area');
-      this.els.viewButton = this.root.querySelector('.matrixDom__view');
-      this.els.resetButton = this.root.querySelector('.matrixDom__reset');
-      this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
-      this.els.nDimensions = this.root.querySelector('.matrixDom__nDimensions');
-   }
-
-   private _renderHTML() {
-      this._root.innerHTML = microTemplate.template(matrixDomTemplate, this);
    }
 
    private _createRoot() {
@@ -257,7 +274,9 @@ export default class MatrixDom extends EventListener {
 
       this._title = val;
 
-      this.render();
+      if (!this.els.title) return;
+
+      this.els.title.innerHTML = this._title;
    }
 
    public get viewType(): ViewType {
