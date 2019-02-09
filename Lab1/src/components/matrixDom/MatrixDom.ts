@@ -104,14 +104,15 @@ export default class MatrixDom extends EventListener {
       if ('n' in config) this._defaultN = config.n;
       else if (customData) this._defaultN = config.data[0].length;
 
+      this.resetData();
+
       if ('minM' in config) this._setMinM(config.minM);
-      if ('minN' in config) this._setMinM(config.minN);
-      if ('maxM' in config) this._setMinM(config.maxM);
-      if ('maxN' in config) this._setMinM(config.maxN);
+      if ('minN' in config) this._setMinN(config.minN);
+      if ('maxM' in config) this._setMaxM(config.maxM);
+      if ('maxN' in config) this._setMaxN(config.maxN);
 
       if ('disabled' in config) this._isDisabled = config.disabled;
 
-      this.resetData();
       this.render();
    }
 
