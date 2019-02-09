@@ -9,6 +9,7 @@ import './MatrixDom.sass';
 
 microTemplate.template.variable = 't';
 
+/** Интерфейс параметров, которые можно передать в конструктор MatrixDom */
 export interface IMatrixDomConfig {
    title?: string,
    m?: number,
@@ -21,8 +22,7 @@ export interface IMatrixDomConfig {
    data?: number[][],
 }
 
-type ViewType = 'cell' | 'area';
-
+/** Интерфейс используемых элементов */
 interface IElements {
    data: HTMLElement,
    controls: HTMLElement,
@@ -34,12 +34,12 @@ interface IElements {
    nDimensions: HTMLInputElement,
 }
 
-export default class MatrixDom extends EventListener {
-   private _isDisabled: boolean = false;
+/** Возможные типы отображения матрицы */
+type ViewType = 'cell' | 'area';
 
-   /** Тип отображения матрицы (в виде отдельных ячеек, или текстом) */
-   private _viewType: ViewType = 'cell';
+export default class MatrixDom extends EventListener {
    private _title: string = '';
+   private _isDisabled: boolean = false;
 
    private _defaultMatrix: number[][] = [
       [0, 0, 0, 0],
@@ -50,9 +50,23 @@ export default class MatrixDom extends EventListener {
    private _defaultM: number = this._defaultMatrix.length;
    private _defaultN: number = this._defaultMatrix[0].length;
 
+   /** 
+    * Внутреннее представление матрицы 
+    * 
+    * Размеры внутреннего представления не связаны с реальными 
+    * размерами матрицы (this._m, this._n)
+    * 
+    * m, n может быть как больше (в этом случае недостающие 
+    * элементы будут считаться нулями), так и меньше (остальные элементы из 
+    * this._matrix просто не будут использованы (но если m, n увеличится, 
+    * то они снова будут видимы))
+    */
    private _matrix: number[][];
 
+   /** Количество строк матрицы */
    private _m: number;
+      
+   /** Количество столбцов матрицы */
    private _n: number;
 
    private _minM: number = 1;
@@ -60,9 +74,13 @@ export default class MatrixDom extends EventListener {
    private _maxM: number = 25;
    private _maxN: number = 25;
 
+   /** Тип отображения матрицы (в виде отдельных ячеек, или текстом) */
+   private _viewType: ViewType = 'cell';
+
+   /** HTML-контейнер компонента */
    private _root: HTMLElement = null;
 
-   /** HTML элементы компонента */
+   /** HTML-элементы компонента */
    private els: IElements = {
       data: null,
       controls: null,
@@ -91,7 +109,7 @@ export default class MatrixDom extends EventListener {
 
    private init(config: IMatrixDomConfig): void {
       this._createRoot();
-      this._initDelegatedEvents();
+      this._initEvents();
 
       const customData = 'data' in config
          && config.data.length > 0
@@ -119,7 +137,7 @@ export default class MatrixDom extends EventListener {
       this.render();
    }
 
-   private _initDelegatedEvents() {
+   private _initEvents() {
       this._root.addEventListener('click', (event) => {
          const targ = <HTMLElement>event.target;
 
@@ -261,7 +279,7 @@ export default class MatrixDom extends EventListener {
    /**
     * Возвращает значение i строки j столбца
     * 
-    * Всегда возвращает значение.Если на переданных координатах ничего нет 
+    * Всегда возвращает значение. Если на переданных координатах ничего нет 
     * возвращает 0 (даже если i, j > m, n)
     * 
     * @param i номер строки
