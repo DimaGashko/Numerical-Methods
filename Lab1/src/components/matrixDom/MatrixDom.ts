@@ -15,7 +15,7 @@ interface IElements {
    data: HTMLElement,
    controls: HTMLElement,
    title: HTMLElement,
-   area: HTMLElement,
+   area: HTMLTextAreaElement,
    viewButton: HTMLElement,
    resetButton: HTMLElement,
    mDimensions: HTMLInputElement,
@@ -23,7 +23,7 @@ interface IElements {
 }
 
 export default class MatrixDom extends EventListener {
-   private _viewType: ViewType = 'cell';
+   private _viewType: ViewType = 'area';
 
    private _defaultMatrix: number[][] = [
       [0, 0, 0],
@@ -31,10 +31,10 @@ export default class MatrixDom extends EventListener {
       [0, 0, 0],
    ];
 
-   private _matrix: number[][] = this._defaultMatrix;
+   private _matrix: number[][];
 
-   private _m: number = this._defaultMatrix.length;
-   private _n: number = this._defaultMatrix[0].length;
+   private _m: number;
+   private _n: number;
 
    private _title: string = 'Matrix A:';
 
@@ -71,6 +71,7 @@ export default class MatrixDom extends EventListener {
       this._createRoot();
       this._initDelegatedEvents();
 
+      this.resetData();
       this.render();
    }
 
@@ -93,9 +94,12 @@ export default class MatrixDom extends EventListener {
          if (targ.classList.contains('matrixCell__input')) {
             this.onCellChange(<HTMLInputElement>targ);
          }
+
+         if (targ.classList.contains('matrixDom__area')) { 
+            this.onAreaType();
+         }
       });
       
-
       this._root.addEventListener('change', (event) => {
          const targ = <HTMLElement>event.target;
 
@@ -119,6 +123,11 @@ export default class MatrixDom extends EventListener {
       if (isNaN(i) || isNaN(j)) return;
 
       this.set(i, j, val); 
+   }
+
+   private onAreaType() { 
+      const val = this.els.area.value;
+      console.log(val);
    }
 
    private onDimensionsChange() {
@@ -149,6 +158,8 @@ export default class MatrixDom extends EventListener {
    }
 
    private renderData() { 
+      if (!this.els.data) return;
+      
       this.els.data.innerHTML = microTemplate
          .template(this.dataTmpl, this);
 
@@ -158,6 +169,8 @@ export default class MatrixDom extends EventListener {
    }
 
    private renderControls() { 
+      if (!this.els.controls) return;
+
       this.els.controls.innerHTML = microTemplate
          .template(this.controlsTmpl, this);
       
@@ -224,7 +237,18 @@ export default class MatrixDom extends EventListener {
    }
 
    public resetData() {
-      this.setData(this._defaultMatrix);
+      this._m = this._defaultMatrix.length;
+      this._n = this._defaultMatrix[0].length;
+
+      this._matrix = [];
+
+      for (let i = 0; i < this._m; i++) {
+         for (let j = 0; j < this._n; j++) {
+            this.set(i, j, this._defaultMatrix[i][j]);
+         }
+      }
+
+      this.renderData();
    }
 
    public get root(): HTMLElement {
