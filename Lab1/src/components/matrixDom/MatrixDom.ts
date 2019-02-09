@@ -94,12 +94,16 @@ export default class MatrixDom extends EventListener {
             this.onCellChange(<HTMLInputElement>targ);
          }
       });
+      
 
       this._root.addEventListener('change', (event) => {
          const targ = <HTMLElement>event.target;
 
          if (targ.classList.contains('matrixDom__dimensionsControl')) {
             this.onDimensionsChange();
+            
+         } else if (targ.classList.contains('matrixCell__input')) {
+            this.onCellChange(<HTMLInputElement>targ);
          }
       });
    }
