@@ -131,8 +131,10 @@ export default class MatrixDom extends EventListener {
    }
 
    private onAreaType(event: KeyboardEvent) {
-      const newData = this.els.area.value
-         .split('\n')
+      const val = this.els.area.value.trim();
+      if (!val.length) return;
+
+      const newData = val.split('\n') 
          .filter(row => row.trim().length > 0)
          .map((row) => {
             return row
