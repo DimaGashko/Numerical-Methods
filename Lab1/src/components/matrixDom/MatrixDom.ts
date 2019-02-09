@@ -96,10 +96,6 @@ export default class MatrixDom extends EventListener {
       });
    }
 
-   private _initElementEvents() {
-
-   }
-
    private onDimensionsChange() {
       const m = +this.els.mDimensions.value;
       const n = +this.els.nDimensions.value;
@@ -127,10 +123,6 @@ export default class MatrixDom extends EventListener {
 
       this.renderData();
       this.renderControls();
-
-      this._initElementEvents();
-
-      this.afterRender();
    }
 
    private renderData() { 
@@ -138,6 +130,8 @@ export default class MatrixDom extends EventListener {
          .template(this.dataTmpl, this);
 
       this.els.area = this.root.querySelector('.matrixDom__area');
+
+      this.correctAreaSize();
    }
 
    private renderControls() { 
@@ -148,10 +142,6 @@ export default class MatrixDom extends EventListener {
       this.els.resetButton = this.root.querySelector('.matrixDom__reset');
       this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
       this.els.nDimensions = this.root.querySelector('.matrixDom__nDimensions');
-   }
-
-   private afterRender() { 
-      this.correctAreaSize();
    }
    
    private correctAreaSize() {
