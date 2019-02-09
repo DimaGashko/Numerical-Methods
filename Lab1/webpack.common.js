@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const merge = require('webpack-merge');
 const path = require('path');
 
 const autoprefixer = require('autoprefixer');
@@ -15,13 +16,11 @@ const htmlWebpackPluginBaseConfig = {
    },
 }
 
-
 module.exports = {
    mode: 'development',
    entry: {
-      main: './src/pages/main/index.ts',
+      index: './src/pages/index/index.ts',
       matrixMulMatrix: './src/pages/matrix-mul-matrix/index.ts',
-      matrixPlusMatrix: './src/pages/matrix-plus-matrix/index.ts',
    },
    output: {
       filename: '[name].[contenthash].js',
@@ -92,16 +91,16 @@ module.exports = {
       extensions: ['.tsx', '.ts', '.js']
    },
    plugins: [
-      new HtmlWebpackPlugin({
-         template: './src/templates/index.pug',
-         favicon: "./src/img/favicon.png",
-         minify: {
-            collapseWhitespace: true,
-            removeComments: true,
-         },
-
-         inlineSource: '.(js|css)$'
-      }),
+      new HtmlWebpackPlugin(merge(htmlWebpackPluginBaseConfig, {
+         filename: 'index.html',
+         template: './src/pages/index/index.pug',
+         chunks: ['index'],
+      })),
+      new HtmlWebpackPlugin(merge(htmlWebpackPluginBaseConfig, {
+         filename: 'matrix-mul-matrix/index.html',
+         template: './src/pages/matrix-mul-matrix/matrix-mul-matrix.pug',
+         chunks: ['matrixMulMatrix'],
+      })),
       new webpack.HashedModuleIdsPlugin(),
       new MiniCssExtractPlugin({
          filename: "[name].[contenthash].css",
