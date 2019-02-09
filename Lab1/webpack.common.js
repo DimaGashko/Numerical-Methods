@@ -20,7 +20,7 @@ module.exports = {
    mode: 'development',
    entry: {
       index: './src/pages/index/index.ts',
-      matrixMulMatrix: './src/pages/matrix-mul-matrix/index.ts',
+      matrixMulMatrix: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
    },
    output: {
       filename: '[name].[contenthash].js',

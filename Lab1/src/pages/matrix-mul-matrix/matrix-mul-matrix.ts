@@ -4,6 +4,8 @@ import './matrix-mul-matrix.sass';
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixMulMatrix from '../../calcFunctions/matrixMulMatrix';
 
+console.log('Matrix multiplication');
+
 const matrixA = new MatrixDom();
 const matrixB = new MatrixDom();
 const matrixC = new MatrixDom({
