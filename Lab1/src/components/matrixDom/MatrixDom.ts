@@ -174,6 +174,15 @@ export default class MatrixDom extends EventListener {
             this.onCellChange(<HTMLInputElement>targ);
          }
       });
+
+      this._root.addEventListener('focus', (event) => {
+         const targ = <HTMLElement>event.target;
+
+         if (targ.classList.contains('matrixCell__input')) {
+            this.onCellFocus(<HTMLInputElement>targ);
+
+         }
+      }, true);
    }
 
    private onCellChange(cellInput: HTMLInputElement) {
@@ -187,6 +196,10 @@ export default class MatrixDom extends EventListener {
       if (isNaN(i) || isNaN(j)) return;
 
       this.set(i, j, val);
+   }
+
+   private onCellFocus(cell: HTMLInputElement) { 
+      cell.select();
    }
 
    private onAreaType(event: KeyboardEvent) {

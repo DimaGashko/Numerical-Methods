@@ -1,5 +1,5 @@
 .matrixDom__dataContainer
-   <% const disabled = (t._isDisabled) ? 'disabled' : 'dd' %>
+   <% const disabled = (t._isDisabled) ? 'disabled' : '' %>
 
    <% if (t.viewType === 'cell') { %>
    .matrixDom__cellsContainer 
@@ -11,7 +11,6 @@
          .matrixCell(data-cell-i!="<%= i %>" data-cell-j!="<%= j %>")
             input.matrixCell__input(
                type="number" value!="<%= t.get(i, j) %>" 
-               onfocus!="this.select()" 
             )&attributes({"<%= disabled %>": "true"}) 
          <% } %> 
       <% } %>
