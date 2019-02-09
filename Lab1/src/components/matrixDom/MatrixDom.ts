@@ -9,6 +9,17 @@ import './MatrixDom.sass';
 
 microTemplate.template.variable = 't';
 
+export interface IMatrixDomConfig {
+   m?: number,
+   n?: number,
+   minM?: number,
+   minN?: number,
+   maxM?: number,
+   maxN?: number,
+   disabled?: boolean,
+   data?: number[][],
+}
+
 type ViewType = 'cell' | 'area';
 
 interface IElements {
@@ -67,17 +78,32 @@ export default class MatrixDom extends EventListener {
    // Шаблон панели управления
    private controlsTmpl = controlsTmpl;
 
-   constructor() {
+   constructor(config: IMatrixDomConfig = {}) {
       super();
 
-      this.init();
+      this.init(config);
    }
 
-   private init(): void {
+   private init(config: IMatrixDomConfig): void {
       this._createRoot();
       this._initDelegatedEvents();
 
-      this.resetData();
+      if ('data' in config) { 
+         this.setData(config.data);
+      } else {
+         this.resetData();
+      }
+
+      if ('m' in config) this._setDimensions(config.m, this._n);
+      if ('n' in config) this._setDimensions(this._m, config.n);
+
+      if ('minM' in config) this._setMinM(config.minM);
+      if ('minN' in config) this._setMinM(config.minN);
+      if ('maxM' in config) this._setMinM(config.maxM);
+      if ('maxN' in config) this._setMinM(config.maxN);
+
+      if ('disabled' in config) this._isDisabled = config.disabled;
+
       this.render();
    }
 
