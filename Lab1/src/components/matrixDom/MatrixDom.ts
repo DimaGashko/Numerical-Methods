@@ -24,6 +24,7 @@ interface IElements {
 
 export default class MatrixDom extends EventListener {
    private _viewType: ViewType = 'cell';
+   private _isDisabled: boolean = false;
 
    private _defaultMatrix: number[][] = [
       [0, 0, 0],
@@ -88,12 +89,14 @@ export default class MatrixDom extends EventListener {
             this.onView();
 
          } else if (targ.classList.contains('matrixDom__reset')) {
+            if (this._isDisabled) return;
             this.onReset();
 
          }
       });
 
       this._root.addEventListener('keyup', (event) => {
+         if (this._isDisabled) return;
          const targ = <HTMLElement>event.target;
 
          if (targ.classList.contains('matrixCell__input')) {
@@ -106,6 +109,7 @@ export default class MatrixDom extends EventListener {
       });
 
       this._root.addEventListener('change', (event) => {
+         if (this._isDisabled) return;
          const targ = <HTMLElement>event.target;
 
          if (targ.classList.contains('matrixDom__dimensionsControl')) {
@@ -458,6 +462,17 @@ export default class MatrixDom extends EventListener {
       if (this._n > this._maxN) {
          this._n = this._maxN;
       }
+   }
+
+   public get disabled(): boolean {
+      return this._isDisabled;
+   }
+
+   public set disabled(val: boolean) {
+      if (val === this._isDisabled) return;
+
+      this._isDisabled = val;
+      this.render();
    }
 
 }

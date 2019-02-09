@@ -1,5 +1,5 @@
 .matrixDom__dimensionsControlsContainer
-   <% const dimDisabled = (t.viewType === 'area') ? 'disabled' : '' %>
+   <% const dimDisabled = (t._isDisabled || t.viewType === 'area') ? 'disabled' : '' %> 
 
    input.matrixDom__dimensionsControl.matrixDom__mDimensions(
       type="number" placeholder="m" value!="<%= t.m %>"
