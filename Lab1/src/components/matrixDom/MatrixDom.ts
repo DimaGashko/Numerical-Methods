@@ -9,6 +9,7 @@ microTemplate.template.variable = 't';
 type ViewType = 'cell' | 'area';
 
 interface IElements {
+   area: HTMLElement,
    viewButton: HTMLElement,
    resetButton: HTMLElement,
    mDimensions: HTMLElement,
@@ -24,7 +25,7 @@ export default class MatrixDom extends EventListener {
       [0, 0, 0],
    ];
 
-   private _matrix: number[][];
+   private _matrix: number[][] = [];
 
    private _m: number;
    private _n: number;
@@ -35,6 +36,7 @@ export default class MatrixDom extends EventListener {
 
    /** HTML элементы компонента */
    private els: IElements = {
+      area: null,
       viewButton: null,
       resetButton: null,
       mDimensions: null,
@@ -92,9 +94,23 @@ export default class MatrixDom extends EventListener {
       this._getElements();
 
       this._initElementEvents();
+
+      this.afterRender();
+   }
+
+   private afterRender() { 
+      this.correctAreaSize();
+   }
+   
+   private correctAreaSize() {
+      if (this.viewType !== 'area') return;
+
+      this.els.area.style.width = this.els.area.scrollWidth + 'px';
+      this.els.area.style.height = this.els.area.scrollHeight + 'px';
    }
 
    private _getElements() {
+      this.els.area = this.root.querySelector('.matrixDom__area');
       this.els.viewButton = this.root.querySelector('.matrixDom__view');
       this.els.resetButton = this.root.querySelector('.matrixDom__reset');
       this.els.mDimensions = this.root.querySelector('.matrixDom__mDimensions');
@@ -111,8 +127,8 @@ export default class MatrixDom extends EventListener {
 
    private _getAreaText(): string {
       return this.getData().map((row) => {
-         
-      });
+         return row.join(' ');
+      }).join('\n');
    }
 
    /**
@@ -138,6 +154,10 @@ export default class MatrixDom extends EventListener {
     * @param val значение
     */
    private set(i: number, j: number, val: number) {
+      if (!this._matrix[i]) {
+         this._matrix[i] = [];
+      }
+
       this._matrix[i][j] = val;
    }
 
@@ -193,6 +213,8 @@ export default class MatrixDom extends EventListener {
 
    public set m(val: number) {
       this._m = val;
+
+      this.render();
    }
 
    public get n(): number {
@@ -201,6 +223,8 @@ export default class MatrixDom extends EventListener {
 
    public set n(val: number) {
       this._n = val;
+
+      this.render(); 
    }
 
    public get title(): string {
