@@ -23,7 +23,7 @@ module.exports = {
       matrixMulMatrix: './src/pages/matrix-mul-matrix/matrix-mul-matrix.ts',
    },
    output: {
-      filename: '[name].[contenthash].js',
+      filename: 'js/[name].[contenthash].js',
       path: path.resolve(__dirname, 'dist'),
       publicPath: '/',
    },
@@ -103,7 +103,7 @@ module.exports = {
       })),
       new webpack.HashedModuleIdsPlugin(),
       new MiniCssExtractPlugin({
-         filename: "[name].[contenthash].css",
+         filename: "css/[name].[contenthash].css",
       }),
    ],
 
