@@ -124,8 +124,6 @@ export default class MatrixDom extends EventListener {
       if ('n' in config) this._defaultN = config.n;
       else if (customData) this._defaultN = config.data[0].length;
 
-      this.resetData();
-
       if ('minM' in config) this._setMinM(config.minM);
       if ('minN' in config) this._setMinN(config.minN);
       if ('maxM' in config) this._setMaxM(config.maxM);
@@ -134,6 +132,7 @@ export default class MatrixDom extends EventListener {
       if ('title' in config) this._title = config.title;
       if ('disabled' in config) this._isDisabled = config.disabled;
 
+      this.resetData();
       this.render();
    }
 
@@ -191,6 +190,8 @@ export default class MatrixDom extends EventListener {
    }
 
    private onAreaType(event: KeyboardEvent) {
+      if (this.viewType !== 'area') return;
+
       const val = this.els.area.value.trim();
       if (!val.length) return;
 

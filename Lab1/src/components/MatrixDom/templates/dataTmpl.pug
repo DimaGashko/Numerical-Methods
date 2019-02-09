@@ -1,8 +1,8 @@
 .matrixDom__dataContainer
-   <% const disabled = (t._isDisabled) ? 'disabled' : '' %>
+   <% const disabled = (t._isDisabled) ? 'disabled' : 'dd' %>
 
    <% if (t.viewType === 'cell') { %>
-   .matrixDom__cellsContainer
+   .matrixDom__cellsContainer 
 
       <% for (let i = 0; i < t._m; i++) { %>
       .matrixDom__cellsRow
@@ -10,9 +10,10 @@
          <% for (let j = 0; j < t._n; j++) { %>
          .matrixCell(data-cell-i!="<%= i %>" data-cell-j!="<%= j %>")
             input.matrixCell__input(
-               type="number" value!="<%= t.get(i, j) %>"
+               type="number" value!="<%= t.get(i, j) %>" 
+               onfocus!="this.select()" 
             )&attributes({"<%= disabled %>": "true"}) 
-         <% } %>
+         <% } %> 
       <% } %>
 
    <% } else if (t.viewType === 'area') { %>

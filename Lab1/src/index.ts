@@ -4,8 +4,9 @@ import matrixMulMatrix from './calcFunctions/matrixMulMatrix';
 import 'normalize.css'
 import './styles/index.sass';
 
-const matrixA = new MatrixDom({ m: 3, n: 3});
-const matrixB = new MatrixDom({ m: 3, n: 3});
+
+const matrixA = new MatrixDom();
+const matrixB = new MatrixDom();
 const matrixC = new MatrixDom({
    disabled: true,
 });
@@ -13,6 +14,8 @@ const matrixC = new MatrixDom({
 document.body.appendChild(matrixA.root);
 document.body.appendChild(matrixB.root);
 document.body.appendChild(matrixC.root);
+
+matrixB.m = matrixA.n;
 
 calc();
 
