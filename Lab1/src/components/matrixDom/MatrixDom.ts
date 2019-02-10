@@ -206,7 +206,7 @@ export default class MatrixDom extends EventListener {
     * @param item элемент матрицы / любое число
     */
    private formatItem(item: number): string { 
-      item = Math.round(item * 1e6) / 1e6;
+      item = Math.round(item * 1e4) / 1e4;
 
       return item + '';
    }
