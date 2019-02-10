@@ -1,4 +1,7 @@
 nav.nav 
-   ul
-      each page in pagesConfig.pages
-         li= page.name
+
+   .nav__title All Tools
+   .nav__list 
+      ul
+         each page in pagesConfig.pages
+            li: a(href=page.url)= page.name  

@@ -4,6 +4,8 @@ import './matrix-mul-matrix.sass';
 import MatrixDom from '../../components/MatrixDom/MatrixDom';
 import matrixMulMatrix from '../../calcFunctions/matrixMulMatrix';
 
+const root = document.querySelector('.app');
+
 console.log('Matrix multiplication');
 
 const matrixA = new MatrixDom();
@@ -12,9 +14,9 @@ const matrixC = new MatrixDom({
    disabled: true,
 });
 
-document.body.appendChild(matrixA.root);
-document.body.appendChild(matrixB.root);
-document.body.appendChild(matrixC.root);
+root.appendChild(matrixA.root);
+root.appendChild(matrixB.root);
+root.appendChild(matrixC.root);
 
 matrixB.m = matrixA.n;
 
