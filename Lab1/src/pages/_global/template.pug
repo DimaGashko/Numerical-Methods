@@ -6,6 +6,30 @@
       }, {
          name: 'Matrix multiplication',
          url: '/matrix-mul-matrix',
+      }, {
+         name: 'Matrix-number multiplication',
+         url: '/matrix-mul-number',
+      }, {
+         name: 'Matrix addition',
+         url: '/matrix-plus-matrix',
+      }, {
+         name: 'Matrix transpose',
+         url: '/transpose-matrix',
+      }, {
+         name: 'Matrix-vector multiplication',
+         url: '/matrix-mul-vector',
+      }, {
+         name: 'Absolute Value of a Vector',
+         url: '/vector-abs',
+      }, {
+         name: 'Vector multiplication',
+         url: '/vector-mul-vector',
+      }, {
+         name: 'Vector-number multiplication',
+         url: 'vector-mul-num',
+      }, {
+         name: 'Vector addition',
+         url: 'vector-plus-vector',
       }],
    }
 
@@ -19,11 +43,6 @@ html(lang="en")
          block title
    body
       .wrapper
-
-         ul
-            for page in pagesConfig.pages
-               li: a(href=page.url) #{page.name}
-
 
          .content
             block content
