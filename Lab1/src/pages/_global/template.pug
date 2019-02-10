@@ -1,4 +1,4 @@
-include ./pagesConfig
+include ./pageComponents/pagesConfig
 
 doctype html
 html(lang="en")
@@ -11,9 +11,12 @@ html(lang="en")
    body
       .wrapper
 
-         ul
-            for page in pagesConfig.pages
-               li: a(href=page.url) #{page.name}
+         include ./pageComponents/header
 
-         .content
-            block content
+         .main
+            main.content
+               block content
+            
+            include ./pageComponents/aside
+
+         include ./pageComponents/footer
