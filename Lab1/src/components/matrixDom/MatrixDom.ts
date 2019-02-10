@@ -201,6 +201,23 @@ export default class MatrixDom extends EventListener {
       this.set(i, j, val);
    }
 
+   /**
+    * Форматирует число для вывода
+    * @param item элемент матрицы / любое число
+    */
+   private formatItem(item: number): string { 
+      item = Math.round(item * 1e6) / 1e6;
+
+      return item + '';
+   }
+
+   /**
+    * Возвращает отформатированный для вывода элемент
+    */
+   private getFormated(i: number, j: number): string { 
+      return this.formatItem(this.get(i, j)) + '';
+   }
+
    private onAreaType(event: KeyboardEvent) {
       if (this.viewType !== 'area') return;
 
@@ -285,7 +302,9 @@ export default class MatrixDom extends EventListener {
 
    private _getAreaText(): string {
       return this.getData().map((row) => {
-         return row.join(' ');
+         return row
+            .map(item => this.formatItem(item))
+            .join(' ');
       }).join('\n');
    }
 

@@ -10,7 +10,7 @@
          <% for (let j = 0; j < t._n; j++) { %>
          .matrixCell(data-cell-i!="<%= i %>" data-cell-j!="<%= j %>")
             input.matrixCell__input(
-               type="number" value!="<%= t.get(i, j) %>" 
+               type="number" value!="<%= t.getFormated(i, j) %>" 
             )&attributes({"<%= disabled %>": "true"}) 
          <% } %> 
       <% } %>
