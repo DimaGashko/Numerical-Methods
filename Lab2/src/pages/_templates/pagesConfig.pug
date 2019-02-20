@@ -1,0 +1,26 @@
+-
+   0; // Что бы считать файл одновременно как js так и pug
+
+   const pagesConfig = {
+      name: 'Learning a Decorators',
+      hash: {}, // Объект страниц по имени (pagesConfig.hash.index)
+
+      pages: [{
+         name: 'Learning a Decorators',
+         alias: 'index',
+         url: '/', 
+         webpackEntry: './src/pages/index/index.ts', 
+         htmlWebpackPlugin: {
+            filename: 'index.html',
+            template: './src/pages/index/index.pug',
+         },
+      }],
+   }
+   
+   pagesConfig.pages.forEach((page) => {
+      pagesConfig.hash[page.alias] = page;
+   });
+
+   if (module) {
+      module.exports = pagesConfig;
+   }
